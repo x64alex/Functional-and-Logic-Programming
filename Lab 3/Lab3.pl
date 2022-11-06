@@ -19,19 +19,16 @@ is_sorted([X,Y|T]):-X=<Y,is_sorted([Y|T]).
 % remove_duplicates(List, List)
 % flow model: remove_duplicates(i,o)
 remove_duplicates([],[]).
-remove_duplicates([A|[]],[A]).
+
+remove_duplicates([A],[A]).
+
+remove_duplicates([A,B|T],[A|L]):-
+    A =\= B,
+    remove_duplicates([B|T],L).
+
 remove_duplicates([A,B|T],List):-
     A =:= B,
-    remove_duplicates([A|T],List).
-
-remove_duplicates([A,B|T],[A|List]):-
-    A =\= B,
     remove_duplicates([B|T],List).
-
-remove_duplicates([H1,H2|T],Tail):-
-    remove_duplicates([H1,H2],R),
-    append(R,T,NewList),
-    remove_duplicates(NewList,Tail).
 
 % remove_sort(List - list, RemoveSorted - list)
 % flow model: remove_sort(i,o)
@@ -40,20 +37,45 @@ remove_sort(List,RemoveSorted):-
     remove_duplicates(Sorted,RemoveSorted).
 
 /** <examples>
-?- %remove_sort([2,3,4,2,2,2,2,1],M)
+%remove_sort([2,3,4,2,2,2,2,1],M)
 %remove_sort([],M)
 %remove_sort([1,1,1,1,2,3,4,5],M)
 %remove_sort([1,1,1,1,2,3,4,5],M)
 %remove_sort([6,7,1,1,2,3,4,5],M)
 %remove_sort([2,1],M)
 %remove_sort([1],M)
+%remove_sort([1,2,3],M)
 */
 
 
 
 
-%b. For a heterogeneous list, formed from integer numbers
+% For a heterogeneous list, formed from integer numbers
 % and list of numbers, write a predicate to sort every 
 % sublist with removing the doubles.
+
+% sort_sublist(List, List)
+% flow model: sort_sublist(i,o)
+sort_sublist([],[]).
+
+sort_sublist([H|T],[RL|R]):-
+    is_list(H),!,
+    remove_sort(H,RL),
+    sort_sublist(T,R).
+
+sort_sublist([H|T],[H|R]):-
+    sort_sublist(T,R).
+
+/** <examples>
+%sort_sublist([1,2,3,4,[2,3,1],5],M)
+%sort_sublist([[2],[1,2],3,4,[2,3,1],5],M)
+%sort_sublist([1,2,[],4,[2,3,1],5],M)
+%sort_sublist([],M)
+%sort_sublist([1,2,3,4],M)
+%sort_sublist([[2,3,1]],M)
+*/
+    
+
+
 
 
