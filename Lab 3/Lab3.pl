@@ -6,6 +6,10 @@
 perm([],[]).
 perm([H|T],S) :- perm(T,P),append(X,Y,P),append(X,[H|Y],S).
 
+% get all permutation
+% findall finds all values for nondeterministic predicate
+allPerms(L,R):- findall(S,perm(L,S),R).
+
 % naive_sort(List, List)
 % flow model: naive_sort(i,o)
 naive_sort(List,Sorted):-perm(List,Sorted),is_sorted(Sorted).
