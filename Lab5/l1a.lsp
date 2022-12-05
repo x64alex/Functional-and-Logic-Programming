@@ -1,5 +1,5 @@
 ;1.a Write a function to return the n-th element of a list, or NIL if such an element does not exist.
-
+;element(L - list)
 (defun element(l k)
     (cond
         ((null l) NIL)
@@ -14,6 +14,7 @@
 (print (element '(1 2 3 -5) 5))
 
 ;1.b Write a function to check whether an atom E is amember of a list which is not necessarily linear
+;memb(L - list E-atom)
 (defun memb(L E)
     (cond
         ((null L) NIL)
@@ -33,10 +34,11 @@
 
 
 
-;1.c Write a function to determine the listof all sublists of a given list, on any level. 
+;1.c Write a function to determine the number of sublists of a given list, on any level. 
 ;   A sublist is either the list itself, or any element that is a list, at any level. 
 ;   Example: (1 2 (3 (4 5)(6 7)) 8 (9 10)) => 5 sublists:
 ;  (  (1 2 (3 (4 5) (6 7)) 8 (9 10))    (3 (4 5) (6 7))     (4 5)   (6 7)   (9 10) )
+;numb(L - list)
 (defun numb(L)
     (cond
         ((null L) 1)
@@ -46,6 +48,7 @@
     
 )
 
+
 (print "Examples for C")
 (print (numb '(1 2 3)))
 (print (numb '(1 2 (3 (4 5) (6 7)) 8 (9 10)) )) 
@@ -54,6 +57,7 @@
 
 ;1.d Write a function to transform a linear list into a set.
 
+;getset(L - list)
 (defun getset(L)
     (cond
         ((null L) NIL)
