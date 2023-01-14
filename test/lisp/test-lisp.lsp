@@ -1,0 +1,28 @@
+;mountainBool(L-list, alpha-0 or 1)
+(defun mountainBool(L alpha)
+    (cond
+        ((null L) nil)
+        ((equal (length L) 1) alpha)
+        ((and (equal alpha 0) (< (car L) (cadr L))) (mountainBool (cdr L) 0))
+        ((and (equal alpha 0) (> (car L) (cadr L))) (mountainBool (cdr L) 1))
+        ((and (equal alpha 1) (> (car L) (cadr L))) (mountainBool (cdr L) 1))
+        (T 0)
+    )
+)
+;mountainl(L-list)
+(defun mountain(L)
+    (cond
+        ((null L) nil)
+        ((equal (length L) 1) 1)
+        (T (mountainBool L 0))
+    )
+    
+)
+
+(print (mountain '(10)))
+(print (mountain '(10 13 10)))
+(print (mountain '(10 13 15 10)))
+(print (mountain '(10 13 15 16)))
+(print (mountain '(10 13 15 16 14 16)))
+(print (mountain '(10 18 29 17 11 10 9 8 7 6 5 4 3 2 1)))
+(print (mountain '(10 11)))
